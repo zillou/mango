@@ -13,6 +13,9 @@ defmodule Mango.CRM do
     |> Repo.insert
   end
 
+
+  def get_customer(id), do: Repo.get(Customer, id)
+
   def get_customer_by_credentials(email, password) do
     customer = Repo.get_by(Customer, email: email)
 
