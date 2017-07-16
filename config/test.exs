@@ -4,7 +4,12 @@ use Mix.Config
 # you can enable the server option below.
 config :mango, MangoWeb.Endpoint,
   http: [port: 4001],
-  server: false
+  server: true
+
+config :mango, sql_sandbox: true
+
+config :wallaby,
+  driver: Wallaby.Experimental.Chrome
 
 # Print only warnings and errors during test
 config :logger, level: :warn
