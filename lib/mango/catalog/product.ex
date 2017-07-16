@@ -1,3 +1,3 @@
 defmodule Mango.Catalog.Product do
-  defstruct [:name, :price, :is_sasonal]
+  defstruct [:name, :price, :is_sasonal, :category]
 end
