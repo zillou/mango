@@ -1,7 +1,15 @@
 defmodule Mango.CatalogTest do
-  use ExUnit.Case
+  use Mango.DataCase, async: true
+
+  alias Mango.Repo
   alias Mango.Catalog
   alias Mango.Catalog.Product
+
+  setup do
+    Repo.insert %Product{ name: "Tomato", price: 55, sku: "A123", is_sasonal: false, category: "vegetables"}
+    Repo.insert %Product{ name: "Apple", price: 55, sku: "B232", is_sasonal: true, category: "fruits"}
+    :ok
+  end
 
   test "list_products/0 returns all products" do
     [p1, p2] = Catalog.list_products
