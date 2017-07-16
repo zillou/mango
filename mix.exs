@@ -41,6 +41,8 @@ defmodule Mango.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
+      {:comeonin, "~> 4.0"},
+      {:argon2_elixir, "~> 1.2"},
       {:wallaby, "~> 0.19.2", [runtime: false, only: :test]}
     ]
   end
