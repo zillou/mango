@@ -14,5 +14,5 @@ config :mango, Mango.Repo,
   username: "postgres",
   password: "postgres",
   database: "mango_test",
-  hostname: "localhost",
+  hostname: "postgres",
   pool: Ecto.Adapters.SQL.Sandbox

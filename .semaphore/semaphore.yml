@@ -1,0 +1,36 @@
+version: v1.0
+name: Mango
+agent:
+  machine:
+    type: e1-standard-2
+  containers:
+    - name: main
+      image: semaphoreci/elixir:1.9-node-browsers
+    - name: postgres
+      image: postgres:9.6
+      env_vars:
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: postgres
+        - name: POSTGRES_DB
+          value: mango_test
+
+blocks:
+  - name: Test
+    task:
+      jobs:
+      - name: compile and build plts
+        commands:
+          - checkout
+          - cache restore mix-deps-$SEMAPHORE_GIT_BRANCH-$(checksum mix.lock),mix-deps-$SEMAPHORE_GIT_BRANCH,mix-deps-master
+          - cache restore mix-build-$SEMAPHORE_GIT_BRANCH-$(checksum mix.lock),mix-build-$SEMAPHORE_GIT_BRANCH,mix-build-master
+
+          - mix local.hex --force && mix local.rebar --force
+          - mix deps.get
+          - MIX_ENV=test mix compile
+
+          - cache store mix-deps-$SEMAPHORE_GIT_BRANCH-$(checksum mix.lock) deps
+          - cache store mix-build-$SEMAPHORE_GIT_BRANCH-$(checksum mix.lock) _build
+
+          - mix test
